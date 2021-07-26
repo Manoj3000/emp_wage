@@ -10,14 +10,18 @@ part_time_hrs=4
 
 random_check=$((RANDOM%3))
 
-if [ $is_present -eq $random_check ]
-then
+case $random_check in
+1)
+    echo "Employee is present for full time"
     total_wage=$(( $per_hrs * $full_day_hrs ))
     echo "Full time wage is : $total_wage"
-elif [ $is_part_time -eq $random_check ]
-then
+    ;;
+2)
+    echo "Employee is present for part time"
     part_wage=$(( $per_hrs * $part_time_hrs ))
     echo "Part time wage is : $part_wage"
-else
-    echo "Employee is absent and todays wage is : 0"
-fi
+    ;;
+*)
+    echo "Employee is absent and wage is : 0"
+    ;;
+esac
