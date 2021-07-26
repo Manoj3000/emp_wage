@@ -2,12 +2,16 @@
 
 echo "Welcome to in emp_wage program"
 
-isPresent=1
-randomCheck=$(((RANDOM%2)+1))
+is_present=1
+per_hrs=20
+day_hrs=8
 
-if [ $isPresent -eq $randomCheck ]
+random_check=$(((RANDOM%2)+1))
+
+if [ $is_present -eq $random_check ]
 then
-    echo "Employee is present"
+    total_wage=$(( $per_hrs * $day_hrs ))
+    echo "Employee is present and todays wage is : $total_wage"
 else
-    echo "Employee is absent"
+    echo "Employee is absent and todays wage is : 0"
 fi
