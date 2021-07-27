@@ -14,6 +14,8 @@ max_working_hrs=100
 working_days=0
 max_working_days=20
 
+declare -a daily_total_wage
+
 function getWokingHours(){
     case $1 in
         1)
@@ -40,6 +42,9 @@ do
         working_hrs=$(( $working_hrs + $emp_hrs ))
         working_days=$(( $working_days + 1 ))
 
+        daily_total_wage[$working_days]="$daily_wage"
+
+
         echo "1=fulltime || 2=parttime || 0=absent"
         echo "random_check ==== " $random_check
         echo "emp_hrs = " $emp_hrs
@@ -53,5 +58,16 @@ do
         break
     fi
 done
+
+
+for i in ${!daily_total_wage[@]}
+do
+    echo "day $i wage = ${daily_total_wage[$i]}" 
+done
+
+
+count_daily_total_wage=$((${#daily_total_wage[@]} + 1))
+daily_total_wage[count_daily_total_wage]=$month_wage
+echo "Total wage = ${daily_total_wage[$count_daily_total_wage]}" 
 
 echo "Employee wage of month is : $month_wage"
