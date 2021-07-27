@@ -14,6 +14,19 @@ max_working_hrs=100
 working_days=0
 max_working_days=20
 
+function getWokingHours(){
+    case $1 in
+        1)
+            echo "8"
+        ;;
+        2)
+            echo "4"
+        ;;
+        *)
+            echo "0"
+        ;;
+    esac
+}
 
 while true
 do
@@ -21,28 +34,22 @@ do
     if (( $working_hrs < $max_working_hrs && $working_days < $max_working_days ))
     then
         random_check=$((RANDOM%3))
-        
-        case $random_check in
-        1)
-            total_wage=$(( $per_hrs * $full_day_hrs ))
-            echo "Employee is present for Full time wage is : $total_wage"
-            month_wage=$(( $month_wage + $total_wage ))
-            working_hrs=$(( $working_hrs + $full_day_hrs ))
-            working_days=$(( $working_days + 1 ))
-            ;;
-        2)
-            part_wage=$(( $per_hrs * $part_time_hrs ))
-            echo "Employee is present for part time wage is : $part_wage"
-            month_wage=$(( $month_wage + $part_wage ))
-            working_hrs=$(( $working_hrs + $part_time_hrs ))
-            working_days=$(( $working_days + 1 ))
-            ;;
-        *)
-            echo "Employee is absent and wage is : 0"
-            ;;
-        esac
+        emp_hrs=$( getWokingHours $random_check )
+        daily_wage=$(( $per_hrs * $emp_hrs ))
+        month_wage=$(( $month_wage + $daily_wage ))
+        working_hrs=$(( $working_hrs + $emp_hrs ))
+        working_days=$(( $working_days + 1 ))
+
+        echo "1=fulltime || 2=parttime || 0=absent"
+        echo "random_check ==== " $random_check
+        echo "emp_hrs = " $emp_hrs
+        echo "daily_wage = " $daily_wage
+        echo "month_wage = " $month_wage
+        echo "working_hrs = " $working_hrs
+        echo "working_days = " $working_days
+        echo
     else
-        echo "Working days are : $working_days and Working hours are : $working_hrs"
+        echo "Working days are : $working_days || Working hours are : $working_hrs"
         break
     fi
 done
