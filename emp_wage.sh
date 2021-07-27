@@ -10,11 +10,11 @@ part_time_hrs=4
 month=20
 month_wage=0
 working_hrs=0
-max_working_hrs=100
+max_working_hrs=96
 working_days=0
 max_working_days=20
 
-declare -a daily_total_wage
+declare -A daily_total_wage
 
 function getWokingHours(){
     case $1 in
@@ -66,8 +66,8 @@ do
 done
 
 
-count_daily_total_wage=$((${#daily_total_wage[@]} + 1))
-daily_total_wage[count_daily_total_wage]=$month_wage
-echo "Total wage = ${daily_total_wage[$count_daily_total_wage]}" 
+count=$((${#daily_total_wage[@]} + 1))
+daily_total_wage[$count]=$(($month_wage))
+echo "Total wage = ${daily_total_wage[$count]}" 
 
 echo "Employee wage of month is : $month_wage"
